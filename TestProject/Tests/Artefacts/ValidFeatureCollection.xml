@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<osgb:FeatureCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:osgb="http://www.ordnancesurvey.co.uk/xml/namespaces/osgb" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.ordnancesurvey.co.uk/xml/namespaces/osgb http://www.ordnancesurvey.co.uk/xml/schema/v9/OSDNFFeatures.xsd" fid="LOCAL_ID_0">
+	<gml:description>Ordnance Survey, (c) Crown Copyright. All rights reserved, 2021-08-26</gml:description>
+	<gml:boundedBy>
+		<gml:null>unknown</gml:null>
+	</gml:boundedBy>
+	<osgb:queryTime>2021-08-26T00:10:00</osgb:queryTime>
+	<osgb:queryExtent>
+		<osgb:Rectangle srsName="osgb:BNG">
+			<gml:coordinates>290000.000,90000.000 295000.000,95000.000</gml:coordinates>
+		</osgb:Rectangle>
+	</osgb:queryExtent>
+	<osgb:cartographicMember>
+		<osgb:CartographicText fid="osgb5000005277336613">
+			<osgb:featureCode>10178</osgb:featureCode>
+			<osgb:version>1</osgb:version>
+			<osgb:versionDate>2021-02-22</osgb:versionDate>
+			<osgb:theme>Roads Tracks And Paths</osgb:theme>
+			<osgb:anchorPoint>
+				<gml:Point srsName="osgb:BNG">
+					<gml:coordinates>294820.890,93979.410</gml:coordinates>
+				</gml:Point>
+			</osgb:anchorPoint>
+			<osgb:changeHistory>
+				<osgb:changeDate>2021-02-22</osgb:changeDate>
+				<osgb:reasonForChange>New</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>Roadside</osgb:descriptiveGroup>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:textRendering>
+				<osgb:anchorPosition>0</osgb:anchorPosition>
+				<osgb:font>1</osgb:font>
+				<osgb:height>1.5</osgb:height>
+				<osgb:orientation>0</osgb:orientation>
+			</osgb:textRendering>
+			<osgb:textString>Post</osgb:textString>
+		</osgb:CartographicText>
+	</osgb:cartographicMember>
+	<osgb:cartographicMember>
+		<osgb:CartographicText fid="osgb5000005277336611">
+			<osgb:featureCode>10178</osgb:featureCode>
+			<osgb:version>1</osgb:version>
+			<osgb:versionDate>2021-02-22</osgb:versionDate>
+			<osgb:theme>Roads Tracks And Paths</osgb:theme>
+			<osgb:anchorPoint>
+				<gml:Point srsName="osgb:BNG">
+					<gml:coordinates>294699.640,93920.680</gml:coordinates>
+				</gml:Point>
+			</osgb:anchorPoint>
+			<osgb:changeHistory>
+				<osgb:changeDate>2021-02-22</osgb:changeDate>
+				<osgb:reasonForChange>New</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>Roadside</osgb:descriptiveGroup>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:textRendering>
+				<osgb:anchorPosition>0</osgb:anchorPosition>
+				<osgb:font>1</osgb:font>
+				<osgb:height>1.5</osgb:height>
+				<osgb:orientation>0</osgb:orientation>
+			</osgb:textRendering>
+			<osgb:textString>Post</osgb:textString>
+		</osgb:CartographicText>
+	</osgb:cartographicMember>
+	<osgb:cartographicMember>
+		<osgb:CartographicSymbol fid="osgb5000005241809433">
+			<osgb:featureCode>10130</osgb:featureCode>
+			<osgb:version>1</osgb:version>
+			<osgb:versionDate>2019-01-29</osgb:versionDate>
+			<osgb:theme>Administrative Boundaries</osgb:theme>
+			<osgb:changeHistory>
+				<osgb:changeDate>2019-01-29</osgb:changeDate>
+				<osgb:reasonForChange>New</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>Political Or Administrative</osgb:descriptiveGroup>
+			<osgb:descriptiveTerm>Boundary Half Mereing</osgb:descriptiveTerm>
+			<osgb:orientation>3117</osgb:orientation>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:point>
+				<gml:Point srsName="osgb:BNG">
+					<gml:coordinates>290406.308,91884.258</gml:coordinates>
+				</gml:Point>
+			</osgb:point>
+		</osgb:CartographicSymbol>
+	</osgb:cartographicMember>
+	<osgb:topographicMember>
+		<osgb:TopographicLine fid="osgb1000000347714966">
+			<osgb:featureCode>10046</osgb:featureCode>
+			<osgb:version>1</osgb:version>
+			<osgb:versionDate>2001-11-11</osgb:versionDate>
+			<osgb:theme>Buildings</osgb:theme>
+			<osgb:theme>Land</osgb:theme>
+			<osgb:accuracyOfPosition>1.0m</osgb:accuracyOfPosition>
+			<osgb:changeHistory>
+				<osgb:changeDate>1989-04-14</osgb:changeDate>
+				<osgb:reasonForChange>New</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>General Feature</osgb:descriptiveGroup>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:physicalPresence>Obstructing</osgb:physicalPresence>
+			<osgb:polyline>
+				<gml:LineString srsName="osgb:BNG">
+					<gml:coordinates>290090.710,90604.400 290091.450,90601.800 290089.300,90601.160 290086.930,90600.450</gml:coordinates>
+				</gml:LineString>
+			</osgb:polyline>
+		</osgb:TopographicLine>
+	</osgb:topographicMember>
+</osgb:FeatureCollection>

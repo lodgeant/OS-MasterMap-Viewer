@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<osgb:FeatureCollection xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:osgb='http://www.ordnancesurvey.co.uk/xml/namespaces/osgb' xmlns:gml='http://www.opengis.net/gml' xmlns:xlink='http://www.w3.org/1999/xlink' xsi:schemaLocation='http://www.ordnancesurvey.co.uk/xml/namespaces/osgb http://www.ordnancesurvey.co.uk/xml/schema/v9/OSDNFFeatures.xsd' fid='LOCAL_ID_0'>
+<gml:description>Ordnance Survey, (c) Crown Copyright. All rights reserved, 2021-08-26</gml:description>
+<gml:boundedBy>
+<gml:null>unknown</gml:null>
+</gml:boundedBy>
+<osgb:queryTime>2021-08-26T00:10:00</osgb:queryTime>
+<osgb:queryExtent>
+<osgb:Rectangle srsName='osgb:BNG'>
+<gml:coordinates>290000.000,90000.000 295000.000,95000.000</gml:coordinates>
+</osgb:Rectangle>
+</osgb:queryExtent>
+<osgb:cartographicMember>
+<osgb:CartographicText fid='osgb5000005277336613'>
+<osgb:featureCode>10178</osgb:featureCode>
+<osgb:version>1</osgb:version>
+<osgb:versionDate>2021-02-22</osgb:versionDate>
+<osgb:theme>Roads Tracks And Paths</osgb:theme>
+<osgb:anchorPoint>
