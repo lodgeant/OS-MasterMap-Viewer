@@ -58,9 +58,6 @@ namespace TestProject
             Assert.AreEqual(expected, result);
         }
 
-
-
-
         [Test]
         public void LoadedXMLFileGeneratesFeatureCollection()
         {
@@ -125,9 +122,12 @@ namespace TestProject
             expected = 1;
             result = map.Feature_Metrics["BoundaryLine"];
             Assert.AreEqual(expected, result);
+
+            // ** Check TOID count **
+            expected = 8;
+            result = map.TOIDList.Count;
+            Assert.AreEqual(expected, result);
         }
-
-
 
         [Test]
         [Ignore("Ignore test")]
@@ -184,6 +184,32 @@ namespace TestProject
 
 
 
+        [Test]
+        public void canBuildBlankMapImage()
+        {
+            int expected = 0;
+            int result = 0;
+            MasterMap map = new MasterMap();
+            expected = 0;
+            //result = map.BuildMapImage();
+            Assert.AreEqual(expected, result);
+            Assert.AreSame(null, map.mapImage);
+        }
+
+
+        [Test]
+        public void canBuildMapImage()
+        {
+            int expected = 0;
+            int result = 0;
+            MasterMap map = new MasterMap();
+            expected = 0;
+            result = map.BuildMapImage();
+            Assert.AreEqual(expected, result);
+
+            Assert.AreEqual(1000, map.mapImage.Width);
+            Assert.AreEqual(1000, map.mapImage.Height);
+        }
 
 
     }
