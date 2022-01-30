@@ -64,10 +64,9 @@ namespace TestProject
         [Test]
         public void canLoadTopographicMembers()
         {
-            //string xmlString = File.ReadAllText(testFullFeaturefilePath);
             string xmlString = File.ReadAllText(testValidFeaturefilePath);
             FeatureCollection fc = new FeatureCollection().DeserialiseFromXMLString(xmlString);
-            Assert.AreEqual(1, fc.topographicMembers.Count);
+            Assert.AreEqual(2, fc.topographicMembers.Count);
 
             // ** TopographicLine [0] **
             Assert.AreEqual("osgb1000000347714966", fc.topographicMembers[0].topographicLine.fid);
@@ -75,6 +74,13 @@ namespace TestProject
             Assert.AreEqual(1, fc.topographicMembers[0].topographicLine.version);
             Assert.AreEqual("Buildings", fc.topographicMembers[0].topographicLine.theme[0]);
             Assert.AreEqual("Land", fc.topographicMembers[0].topographicLine.theme[1]);
+
+            // ** TopographicArea [1] **
+            Assert.AreEqual("osgb1000002062221594", fc.topographicMembers[1].topographicArea.fid);
+            Assert.AreEqual("10056", fc.topographicMembers[1].topographicArea.featureCode);
+            Assert.AreEqual(3, fc.topographicMembers[1].topographicArea.version);
+            Assert.AreEqual("Land", fc.topographicMembers[1].topographicArea.theme[0]);
+           
 
 
 

@@ -38,8 +38,8 @@ namespace TestProject
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
             Assert.AreEqual(0, map.LoadFeaturesFromXMLFile(testValidFeaturefilePath));
 
-            //int expected = 10922312;
-            int expected = 81;
+            
+            int expected = 108;
             int result = map.featureXML_nodeCount;
             Assert.AreEqual(expected, result);
 
@@ -69,7 +69,7 @@ namespace TestProject
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
             FeatureCollection fc = map.featureCollection;           
             Assert.AreEqual(3, fc.cartographicMembers.Count);
-            Assert.AreEqual(1, fc.topographicMembers.Count);
+            Assert.AreEqual(2, fc.topographicMembers.Count);
         }
 
 
@@ -97,7 +97,7 @@ namespace TestProject
             result = map.Member_Metrics["cartographicMember"];
             Assert.AreEqual(expected, result);
 
-            expected = 1;
+            expected = 2;
             result = map.Member_Metrics["topographicMember"];
             Assert.AreEqual(expected, result);
         }
@@ -120,42 +120,49 @@ namespace TestProject
             expected = 1;
             result = map.Feature_Metrics["TopographicLine"];
             Assert.AreEqual(expected, result);
+            expected = 1;
+            result = map.Feature_Metrics["TopographicArea"];
+            Assert.AreEqual(expected, result);
         }
 
 
 
-        //[Test]
-        //public void LoadedXMLFileGeneratesFeatureCollection_FullFile()
-        //{
-        //    int expected = 0;
-        //    int result = 0;
+        [Test]
+        public void LoadedXMLFileGeneratesFeatureCollection_FullFile()
+        {
+            int expected = 0;
+            int result = 0;
 
-        //    MasterMap map = new MasterMap();
-        //    map.LoadFeaturesFromXMLFile(testFeaturefilePath);
-        //    FeatureCollection fc = map.featureCollection;
-        //    Assert.AreEqual(21183, fc.cartographicMembers.Count);
-        //    Assert.AreEqual(546484, fc.topographicMembers.Count);
+            MasterMap map = new MasterMap();
+            map.LoadFeaturesFromXMLFile(testFeaturefilePath);
+            FeatureCollection fc = map.featureCollection;
+            Assert.AreEqual(21183, fc.cartographicMembers.Count);
+            Assert.AreEqual(546484, fc.topographicMembers.Count);
 
 
-        //    map.UpdateMetrics();
-        //    expected = 21183;
-        //    result = map.Member_Metrics["cartographicMember"];
-        //    Assert.AreEqual(expected, result);
-        //    expected = 546484;
-        //    result = map.Member_Metrics["topographicMember"];
-        //    Assert.AreEqual(expected, result);
+            map.UpdateMetrics();
+            expected = 21183;
+            result = map.Member_Metrics["cartographicMember"];
+            Assert.AreEqual(expected, result);
+            expected = 546484;
+            result = map.Member_Metrics["topographicMember"];
+            Assert.AreEqual(expected, result);
 
-        //    expected = 20299;
-        //    result = map.Feature_Metrics["CartographicText"];
-        //    Assert.AreEqual(expected, result);
-        //    expected = 884;
-        //    result = map.Feature_Metrics["CartographicSymbol"];
-        //    Assert.AreEqual(expected, result);
-        //    expected = 402355;
-        //    result = map.Feature_Metrics["TopographicLine"];
-        //    Assert.AreEqual(expected, result);
+            expected = 20299;
+            result = map.Feature_Metrics["CartographicText"];
+            Assert.AreEqual(expected, result);
+            expected = 884;
+            result = map.Feature_Metrics["CartographicSymbol"];
+            Assert.AreEqual(expected, result);
+            expected = 402355;
+            result = map.Feature_Metrics["TopographicLine"];
+            Assert.AreEqual(expected, result);
 
-        //}
+            expected = 141903;
+            result = map.Feature_Metrics["TopographicArea"];
+            Assert.AreEqual(expected, result);
+
+        }
 
 
 

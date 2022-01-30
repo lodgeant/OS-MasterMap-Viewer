@@ -19,6 +19,8 @@ namespace TestProject
         [XmlElement("TopographicLine", Namespace = osgbNS)]
         public TopographicLine topographicLine;
 
+        [XmlElement("TopographicArea", Namespace = osgbNS)]
+        public TopographicArea topographicArea;
 
 
     }
@@ -29,13 +31,15 @@ namespace TestProject
     {
         private const string osgbNS = "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb";
 
-
-
-
     }
 
 
+    [XmlRoot("TopographicArea", Namespace = osgbNS)]
+    public class TopographicArea : BaseFeature
+    {
+        private const string osgbNS = "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb";
 
+    }
 
 
 }

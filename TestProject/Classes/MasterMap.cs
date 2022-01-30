@@ -30,7 +30,8 @@ namespace TestProject
         {
             CartographicText,
             CartographicSymbol,
-            TopographicLine
+            TopographicLine,
+            TopographicArea
         }
 
 

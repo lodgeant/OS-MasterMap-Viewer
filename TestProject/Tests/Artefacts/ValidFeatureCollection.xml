@@ -105,4 +105,41 @@
 			</osgb:polyline>
 		</osgb:TopographicLine>
 	</osgb:topographicMember>
+	<osgb:topographicMember>
+		<osgb:TopographicArea fid="osgb1000002062221594">
+			<osgb:featureCode>10056</osgb:featureCode>
+			<osgb:version>3</osgb:version>
+			<osgb:versionDate>2019-02-04</osgb:versionDate>
+			<osgb:theme>Land</osgb:theme>
+			<osgb:calculatedAreaValue>428.59965</osgb:calculatedAreaValue>
+			<osgb:changeHistory>
+				<osgb:changeDate>2001-03-09</osgb:changeDate>
+				<osgb:reasonForChange>New</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:changeHistory>
+				<osgb:changeDate>2001-03-23</osgb:changeDate>
+				<osgb:reasonForChange>Reclassified</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:changeHistory>
+				<osgb:changeDate>2009-07-21</osgb:changeDate>
+				<osgb:reasonForChange>Attributes</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:changeHistory>
+				<osgb:changeDate>2019-01-29</osgb:changeDate>
+				<osgb:reasonForChange>Modified</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>General Surface</osgb:descriptiveGroup>
+			<osgb:make>Manmade</osgb:make>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:polygon>
+				<gml:Polygon srsName="osgb:BNG">
+					<gml:outerBoundaryIs>
+						<gml:LinearRing>
+							<gml:coordinates>292671.550,92872.450 292676.050,92872.950 292676.450,92869.100 292702.250,92872.000 292702.460,92872.050 292702.570,92872.070 292702.690,92872.080 292702.800,92872.090 292702.920,92872.100 292703.040,92872.100 292703.160,92872.090 292703.280,92872.080 292703.400,92872.060 292703.510,92872.040 292703.630,92872.020 292703.740,92871.990 292703.720,92876.760 292703.570,92876.740 292692.140,92874.980 292673.300,92890.750 292661.400,92876.500 292659.600,92871.700 292659.650,92871.160 292671.550,92872.450</gml:coordinates>
+						</gml:LinearRing>
+					</gml:outerBoundaryIs>
+				</gml:Polygon>
+			</osgb:polygon>
+		</osgb:TopographicArea>
+	</osgb:topographicMember>
 </osgb:FeatureCollection>
