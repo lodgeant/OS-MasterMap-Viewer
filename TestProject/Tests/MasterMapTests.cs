@@ -5,7 +5,7 @@ namespace TestProject
 {
     public class MasterMapTests
     {        
-        private string testFeaturefilePath = @"C:\Source Code\CS\OS MasterMap Viewer\TestProject\Tests\Artefacts\5436275-SX9090";
+        private string testFeaturefilePath = @"C:\TONY\5436275-SX9090";
         private string testValidFeaturefilePath = @"C:\Source Code\CS\OS MasterMap Viewer\TestProject\Tests\Artefacts\ValidFeatureCollection.xml";
 
 
@@ -67,9 +67,7 @@ namespace TestProject
         {
             MasterMap map = new MasterMap();
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
-            FeatureCollection fc = map.featureCollection;
-            //Assert.AreEqual(21183, fc.cartographicMembers.Count);
-            //Assert.AreEqual(546484, fc.topographicMembers.Count);
+            FeatureCollection fc = map.featureCollection;           
             Assert.AreEqual(3, fc.cartographicMembers.Count);
             Assert.AreEqual(1, fc.topographicMembers.Count);
         }
@@ -86,20 +84,79 @@ namespace TestProject
 
 
         [Test]
-        public void MetricsUpdatedCorrectly()
+        public void Member_Metrics_UpdatedCorrectly()
         {
             MasterMap map = new MasterMap();
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
             map.UpdateMetrics();
+            int expected = 0;
+            int result = 0;
 
-            int expected = 3;
-            int result = map.Metrics["cartographicMember"];
+
+            expected = 3;
+            result = map.Member_Metrics["cartographicMember"];
             Assert.AreEqual(expected, result);
 
             expected = 1;
-            result = map.Metrics["topographicMember"];
+            result = map.Member_Metrics["topographicMember"];
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        public void Feature_Metrics_UpdatedCorrectly()
+        {
+            MasterMap map = new MasterMap();
+            map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
+            map.UpdateMetrics();
+            int expected = 0;
+            int result = 0;
+
+            expected = 2;
+            result = map.Feature_Metrics["CartographicText"];
+            Assert.AreEqual(expected, result);
+            expected = 1;
+            result = map.Feature_Metrics["CartographicSymbol"];
+            Assert.AreEqual(expected, result);
+            expected = 1;
+            result = map.Feature_Metrics["TopographicLine"];
+            Assert.AreEqual(expected, result);
+        }
+
+
+
+        //[Test]
+        //public void LoadedXMLFileGeneratesFeatureCollection_FullFile()
+        //{
+        //    int expected = 0;
+        //    int result = 0;
+
+        //    MasterMap map = new MasterMap();
+        //    map.LoadFeaturesFromXMLFile(testFeaturefilePath);
+        //    FeatureCollection fc = map.featureCollection;
+        //    Assert.AreEqual(21183, fc.cartographicMembers.Count);
+        //    Assert.AreEqual(546484, fc.topographicMembers.Count);
+
+
+        //    map.UpdateMetrics();
+        //    expected = 21183;
+        //    result = map.Member_Metrics["cartographicMember"];
+        //    Assert.AreEqual(expected, result);
+        //    expected = 546484;
+        //    result = map.Member_Metrics["topographicMember"];
+        //    Assert.AreEqual(expected, result);
+
+        //    expected = 20299;
+        //    result = map.Feature_Metrics["CartographicText"];
+        //    Assert.AreEqual(expected, result);
+        //    expected = 884;
+        //    result = map.Feature_Metrics["CartographicSymbol"];
+        //    Assert.AreEqual(expected, result);
+        //    expected = 402355;
+        //    result = map.Feature_Metrics["TopographicLine"];
+        //    Assert.AreEqual(expected, result);
+
+        //}
+
 
 
 

@@ -17,9 +17,22 @@ namespace TestProject
         public XmlDocument featureXMLDoc = new XmlDocument();
         public int featureXMLDoc_nodeCount = 0;
         public FeatureCollection featureCollection = new FeatureCollection();        
-        public Dictionary<string, int> Metrics = new Dictionary<string, int>();
+        public Dictionary<string, int> Member_Metrics = new Dictionary<string, int>();
+        public Dictionary<string, int> Feature_Metrics = new Dictionary<string, int>();
 
-        
+        public enum MemberType
+        {
+            cartographicMember,
+            topographicMember
+        }
+
+        public enum FeatureType
+        {
+            CartographicText,
+            CartographicSymbol,
+            TopographicLine
+        }
+
 
         public int LoadFeaturesFromXMLFile(string filePath)
         {
@@ -41,10 +54,6 @@ namespace TestProject
                 string xmlString = File.ReadAllText(filePath);
                 featureCollection = new FeatureCollection().DeserialiseFromXMLString(xmlString);
 
-
-
-
-
                 return 0;
             }
             catch(Exception ex)
@@ -54,26 +63,26 @@ namespace TestProject
         }
 
         public int UpdateMetrics()
-        {
-            List<string> memberList = new List<string>()
-            { 
-                "cartographicMember", 
-                "topographicMember" 
-            };
+        {            
             try
             {
                 // ** Add namespace manager **
                 XmlNamespaceManager nsmgr = new XmlNamespaceManager(featureXMLDoc.NameTable);
                 nsmgr.AddNamespace("osgb", "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb");
 
-                // ** Generate metrics **                
-                foreach (string member in memberList)
+
+                // ** Generate Member_Metrics **                
+                foreach (string member in Enum.GetNames(typeof(MemberType)))
                 {
-                    if (Metrics.ContainsKey(member) == false)
-                    {
-                        Metrics.Add(member, 0);
-                    }
-                    Metrics[member] = featureXMLDoc.SelectNodes("//osgb:" + member, nsmgr).Count;
+                    if (Member_Metrics.ContainsKey(member) == false) Member_Metrics.Add(member, 0);
+                    Member_Metrics[member] = featureXMLDoc.SelectNodes("//osgb:" + member, nsmgr).Count;
+                }
+
+                // ** Generate Deature **                
+                foreach (string feature in Enum.GetNames(typeof(FeatureType)))
+                {
+                    if (Feature_Metrics.ContainsKey(feature) == false) Feature_Metrics.Add(feature, 0);
+                    Feature_Metrics[feature] = featureXMLDoc.SelectNodes("//osgb:" + feature, nsmgr).Count;
                 }
 
                 return 0;
