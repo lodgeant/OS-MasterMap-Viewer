@@ -23,9 +23,25 @@ namespace MasterMapLib
         public Dictionary<string, int> Feature_Metrics = new Dictionary<string, int>();
         public int featureCount = 0;
         public HashSet<string> TOIDList = new HashSet<string>();
-        public Bitmap mapImage = null;
-
-        
+        public Bitmap mapImage = null;        
+        public Dictionary<string, string> stylePalette = new Dictionary<string, string>()
+        {
+            {"structureFill","FFD7C3" },
+            {"heritageFill","DCDCBE" },
+            {"madeSurfaceFill","D2D2AA" },
+            {"stepFill","D2D2AA" },
+            {"roadFill","D7D7D7" },
+            {"pathFill","CCCCCC" },
+            {"railFill","CCCCCC" },
+            {"buildingFill","FFDCAF" },
+            {"glasshouseFill","FFCC99" },
+            {"naturalSurfaceFill","D2FFB4" },
+            {"naturalEnvironmentFill","DCFFBE" },
+            {"inlandWaterFill","BEFFFF" },
+            {"tidalWaterFill","BEFFFF" },
+            {"multipleSurfaceFill","FFFFCC" },
+            {"unclassifiedFill","FFFFFF" },
+        };
 
 
         public enum MemberType
@@ -125,47 +141,78 @@ namespace MasterMapLib
         {
             try
             {
-                mapImage = new Bitmap(5000, 5000);
-                float startPosX = 290000;
-                float startPosY = 90000;
-
-
-                Color t = ColorTranslator.FromHtml("#FFD7C3");
-                //Color t = Color.FromArgb(255, 215, 195);
-
-                Brush b = new SolidBrush(t);
-
                 // ** Add namespace manager **
                 XmlNamespaceManager nsmgr = new XmlNamespaceManager(featureXMLDoc.NameTable);
                 nsmgr.AddNamespace("osgb", "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb");
                 nsmgr.AddNamespace("gml", "http://www.opengis.net/gml");
 
-                
-
                 // ** Get Topo data - TO BE REPLACED
-                XmlNodeList nodeList = featureXMLDoc.SelectNodes("//osgb:TopographicArea//gml:LinearRing/gml:coordinates", nsmgr);
+                XmlNodeList nodeList_Area = featureXMLDoc.SelectNodes("//osgb:TopographicArea", nsmgr);
+                XmlNodeList nodeList_Line = featureXMLDoc.SelectNodes("//osgb:TopographicLine", nsmgr);
+                var nodeList = nodeList_Area.Cast<XmlNode>().Concat<XmlNode>(nodeList_Line.Cast<XmlNode>());
 
 
-                //List<string> failedTOIDList = new List<string>();
+                // ** Generate mapImage **
+                mapImage = new Bitmap(5000, 5000);
+                float startPosX = 290000;
+                float startPosY = 90000;
                 int failedTOIDCount = 0;
-                using (var graphics = Graphics.FromImage(mapImage))
+                int unclassifiedCount = 0;
+                using (var g = Graphics.FromImage(mapImage))
                 {                    
                     foreach(XmlNode node in nodeList)
                     {
                         try
                         {
-                            string[] lineString = node.InnerXml.Split(" ");
+                            // ** Get Base Variables **                            
+                            string featureType = node.LocalName;
+                            string descriptiveGroup = "";
+                            if (node.SelectSingleNode("osgb:descriptiveGroup", nsmgr) != null) descriptiveGroup = node.SelectSingleNode("osgb:descriptiveGroup", nsmgr).InnerXml;                            
+                            string descriptiveTerm = "";
+                            if (node.SelectSingleNode("osgb:descriptiveTerm", nsmgr) != null) descriptiveTerm = node.SelectSingleNode("osgb:descriptiveTerm", nsmgr).InnerXml;                            
+                            string make = "";
+                            if (node.SelectSingleNode("osgb:make", nsmgr) != null) make = node.SelectSingleNode("osgb:make", nsmgr).InnerXml;
 
-                            List<PointF> ptsList = new List<PointF>();
-                            foreach (string pointString in lineString)
+                            // ** TopographicArea **
+                            if (featureType.Equals("TopographicArea"))
                             {
-                                float xPos = float.Parse(pointString.Split(",")[0]) - startPosX;
-                                float yPos = float.Parse(pointString.Split(",")[1]) - startPosY;
-                                ptsList.Add(new PointF(xPos, yPos));
+                                // ** Get Specific Variables **
+                                string[] lineString = node.SelectSingleNode("osgb:polygon/gml:Polygon/gml:outerBoundaryIs/gml:LinearRing/gml:coordinates", nsmgr).InnerXml.Split(" ");
+
+                                // ** Derive brush to use for Feature **
+                                string fillStyle = GetStyleName(featureType, descriptiveGroup, descriptiveTerm, make);
+                                if (fillStyle.Equals("unclassifiedFill")) unclassifiedCount += 1;
+
+                                // ** Generate polygon points and draw **
+                                List<PointF> ptsList = new List<PointF>();
+                                foreach (string pointString in lineString)
+                                {
+                                    float xPos = float.Parse(pointString.Split(",")[0]) - startPosX;
+                                    float yPos = float.Parse(pointString.Split(",")[1]) - startPosY;
+                                    ptsList.Add(new PointF(xPos, yPos));
+                                }
+                                g.FillPolygon(new SolidBrush(ColorTranslator.FromHtml("#" + stylePalette[fillStyle])), ptsList.ToArray());
+                                //g.DrawPolygon(new Pen(Color.Gray, 1), ptsList.ToArray());
                             }
-                            //graphics.DrawLines(new Pen(Color.Black, 1), ptsList.ToArray());                            
-                            graphics.FillPolygon(b, ptsList.ToArray());
-                            graphics.DrawPolygon(new Pen(Color.Black, 1), ptsList.ToArray());
+                            else if (featureType.Equals("TopographicLine"))
+                            {
+                                // ** Get Specific Variables **
+                                string[] lineString = node.SelectSingleNode("osgb:polyline/gml:LineString/gml:coordinates", nsmgr).InnerXml.Split(" ");
+
+                                // ** Generate line points **
+                                List<PointF> ptsList = new List<PointF>();
+                                foreach (string pointString in lineString)
+                                {
+                                    float xPos = float.Parse(pointString.Split(",")[0]) - startPosX;
+                                    float yPos = float.Parse(pointString.Split(",")[1]) - startPosY;
+                                    ptsList.Add(new PointF(xPos, yPos));
+                                }
+
+                                // ** Draw Line **
+                                g.DrawLines(new Pen(Color.Black, 1), ptsList.ToArray());
+                            }
+
+
                         }
                         catch(Exception ex)
                         {
@@ -182,6 +229,81 @@ namespace MasterMapLib
                 return -1;
             }
         }
+
+
+        public string GetStyleName(string featureType, string descriptiveGroup, string descriptiveTerm, string make)
+        {
+            string styleName = "unclassifiedFill";
+            if(featureType.Equals("TopographicArea"))
+            {
+                if(descriptiveGroup.Equals("Building"))
+                {
+                    styleName = "buildingFill";
+                }
+                else if (descriptiveTerm.Equals("Step"))
+                {
+                    styleName = "stepFill";
+                }
+                else if (descriptiveGroup.Equals("Glasshouse"))
+                {
+                    styleName = "glasshouseFill";
+                }
+                else if (descriptiveGroup.Equals("Historic Interest"))
+                {
+                    styleName = "heritageFill";
+                }
+                else if (descriptiveGroup.Equals("Inland Water"))
+                {
+                    styleName = "inlandWaterFill";
+                }
+                else if (descriptiveGroup.Equals("Natural Environment"))
+                {
+                    styleName = "naturalEnvironmentFill";
+                }
+                else if (descriptiveGroup.Equals("Path"))
+                {
+                    styleName = "pathFill";
+                }
+                else if (descriptiveGroup.Equals("Road Or Track"))
+                {
+                    styleName = "roadFill";
+                }
+                else if (descriptiveGroup.Equals("Structure"))
+                {
+                    styleName = "structureFill";
+                }
+                else if (descriptiveGroup.Equals("Tidal Water"))
+                {
+                    styleName = "tidalWaterFill";
+                }
+                else if (descriptiveGroup.Equals("Unclassified"))
+                {
+                    styleName = "unclassifiedFill";
+                }
+                else if (descriptiveGroup.Equals("Rail") && make.Equals("Manmade"))
+                {
+                    styleName = "railFill";
+                }
+                else if (make.Equals("Manmade"))
+                {
+                    styleName = "madeSurfaceFill";
+                }
+                else if (make.Equals("Natural"))
+                {
+                    styleName = "naturalSurfaceFill";
+                }
+                else if (make.Equals("Unknown"))
+                {
+                    styleName = "madeSurfaceFill";
+                }
+                else if (make.Equals("Multiple"))
+                {
+                    styleName = "multipleSurfaceFill";
+                }
+            }
+            return styleName;
+        }
+
 
     }
 }
