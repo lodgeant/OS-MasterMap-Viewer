@@ -142,4 +142,65 @@
 			</osgb:polygon>
 		</osgb:TopographicArea>
 	</osgb:topographicMember>
+	<osgb:topographicMember>
+		<osgb:TopographicPoint fid="osgb1000000732277248">
+			<osgb:featureCode>10197</osgb:featureCode>
+			<osgb:version>1</osgb:version>
+			<osgb:versionDate>2001-11-21</osgb:versionDate>
+			<osgb:theme>Terrain And Height</osgb:theme>
+			<osgb:accuracyOfPosition>1.0m</osgb:accuracyOfPosition>
+			<osgb:changeHistory>
+				<osgb:changeDate>1986-09-24</osgb:changeDate>
+				<osgb:reasonForChange>New</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>Terrain And Height</osgb:descriptiveGroup>
+			<osgb:descriptiveTerm>Spot Height</osgb:descriptiveTerm>
+			<osgb:heightAboveDatum>
+				<osgb:heightAboveDatum>25.3</osgb:heightAboveDatum>
+				<osgb:accuracyOfHeightAboveDatum>1.0m</osgb:accuracyOfHeightAboveDatum>
+			</osgb:heightAboveDatum>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:point>
+				<gml:Point srsName="osgb:BNG">
+					<gml:coordinates>294537.200,92259.300</gml:coordinates>
+				</gml:Point>
+			</osgb:point>
+		</osgb:TopographicPoint>
+	</osgb:topographicMember>
+	
+	
+	
+	<osgb:boundaryMember>
+		<osgb:BoundaryLine fid="osgb1000000738111002">
+			<osgb:featureCode>10128</osgb:featureCode>
+			<osgb:version>3</osgb:version>
+			<osgb:versionDate>2019-02-08</osgb:versionDate>
+			<osgb:theme>Administrative Boundaries</osgb:theme>
+			<osgb:accuracyOfPosition>1.0m</osgb:accuracyOfPosition>
+			<osgb:changeHistory>
+				<osgb:changeDate>2000-08-16</osgb:changeDate>
+				<osgb:reasonForChange>Reclassified</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:changeHistory>
+				<osgb:changeDate>2003-03-10</osgb:changeDate>
+				<osgb:reasonForChange>Attributes</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:changeHistory>
+				<osgb:changeDate>2019-02-08</osgb:changeDate>
+				<osgb:reasonForChange>Modified</osgb:reasonForChange>
+			</osgb:changeHistory>
+			<osgb:descriptiveGroup>Political Or Administrative</osgb:descriptiveGroup>
+			<osgb:descriptiveTerm>Electoral</osgb:descriptiveTerm>
+			<osgb:physicalLevel>50</osgb:physicalLevel>
+			<osgb:physicalPresence>Boundary</osgb:physicalPresence>
+			<osgb:polyline>
+				<gml:LineString srsName="osgb:BNG">
+					<gml:coordinates>293503.987,92643.691 293522.450,92619.050 293526.100,92614.100 293529.150,92610.070 293532.500,92605.550 293541.890,92593.090</gml:coordinates>
+				</gml:LineString>
+			</osgb:polyline>
+		</osgb:BoundaryLine>
+	</osgb:boundaryMember>
+	
+	
+	
 </osgb:FeatureCollection>

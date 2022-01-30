@@ -8,7 +8,7 @@ using System.IO;
 
 
 
-namespace TestProject
+namespace MasterMapLib
 {
     [XmlRoot("FeatureCollection", Namespace = osgbNS)]
     public class FeatureCollection
@@ -31,7 +31,8 @@ namespace TestProject
         [XmlElement("topographicMember", Namespace = osgbNS)]
         public List<TopographicMember> topographicMembers;
 
-
+        [XmlElement("boundaryMember", Namespace = osgbNS)]
+        public List<BoundaryMember> boundaryMembers;
 
 
         public FeatureCollection() { }

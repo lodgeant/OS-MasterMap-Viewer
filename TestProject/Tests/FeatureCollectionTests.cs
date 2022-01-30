@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.IO;
+using MasterMapLib;
 
 namespace TestProject
 {
@@ -59,14 +60,12 @@ namespace TestProject
            
         }
 
-
-
         [Test]
         public void canLoadTopographicMembers()
         {
             string xmlString = File.ReadAllText(testValidFeaturefilePath);
             FeatureCollection fc = new FeatureCollection().DeserialiseFromXMLString(xmlString);
-            Assert.AreEqual(2, fc.topographicMembers.Count);
+            Assert.AreEqual(3, fc.topographicMembers.Count);
 
             // ** TopographicLine [0] **
             Assert.AreEqual("osgb1000000347714966", fc.topographicMembers[0].topographicLine.fid);
@@ -80,9 +79,27 @@ namespace TestProject
             Assert.AreEqual("10056", fc.topographicMembers[1].topographicArea.featureCode);
             Assert.AreEqual(3, fc.topographicMembers[1].topographicArea.version);
             Assert.AreEqual("Land", fc.topographicMembers[1].topographicArea.theme[0]);
-           
 
+            // ** TopographicPoint [2] **
+            Assert.AreEqual("osgb1000000732277248", fc.topographicMembers[2].topographicPoint.fid);
+            Assert.AreEqual("10197", fc.topographicMembers[2].topographicPoint.featureCode);
+            Assert.AreEqual(1, fc.topographicMembers[2].topographicPoint.version);
+            Assert.AreEqual("Terrain And Height", fc.topographicMembers[2].topographicPoint.theme[0]);
 
+        }
+
+        [Test]
+        public void canLoadBoundaryMembers()
+        {
+            string xmlString = File.ReadAllText(testValidFeaturefilePath);
+            FeatureCollection fc = new FeatureCollection().DeserialiseFromXMLString(xmlString);
+            Assert.AreEqual(1, fc.boundaryMembers.Count);
+
+            // ** BoundaryLine [0] **
+            Assert.AreEqual("osgb1000000738111002", fc.boundaryMembers[0].boundaryLine.fid);
+            Assert.AreEqual("10128", fc.boundaryMembers[0].boundaryLine.featureCode);
+            Assert.AreEqual(3, fc.boundaryMembers[0].boundaryLine.version);            
+            Assert.AreEqual("Administrative Boundaries", fc.boundaryMembers[0].boundaryLine.theme[0]);
 
         }
 

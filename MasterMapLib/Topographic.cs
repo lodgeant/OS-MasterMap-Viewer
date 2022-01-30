@@ -8,7 +8,7 @@ using System.IO;
 
 
 
-namespace TestProject
+namespace MasterMapLib
 {
 
     [XmlRoot("topographicMember", Namespace = osgbNS)]
@@ -21,6 +21,9 @@ namespace TestProject
 
         [XmlElement("TopographicArea", Namespace = osgbNS)]
         public TopographicArea topographicArea;
+
+        [XmlElement("TopographicPoint", Namespace = osgbNS)]
+        public TopographicPoint topographicPoint;
 
 
     }
@@ -36,6 +39,13 @@ namespace TestProject
 
     [XmlRoot("TopographicArea", Namespace = osgbNS)]
     public class TopographicArea : BaseFeature
+    {
+        private const string osgbNS = "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb";
+
+    }
+
+    [XmlRoot("TopographicPoint", Namespace = osgbNS)]
+    public class TopographicPoint : BaseFeature
     {
         private const string osgbNS = "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb";
 

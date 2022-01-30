@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using MasterMapLib;
 
 
 namespace TestProject
@@ -37,12 +38,10 @@ namespace TestProject
             MasterMap map = new MasterMap();
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
             Assert.AreEqual(0, map.LoadFeaturesFromXMLFile(testValidFeaturefilePath));
-
-            
-            int expected = 108;
+                        
+            int expected = 150;
             int result = map.featureXML_nodeCount;
             Assert.AreEqual(expected, result);
-
             expected = 2;
             result = map.featureXMLDoc_nodeCount;
             Assert.AreEqual(expected, result);
@@ -69,9 +68,9 @@ namespace TestProject
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
             FeatureCollection fc = map.featureCollection;           
             Assert.AreEqual(3, fc.cartographicMembers.Count);
-            Assert.AreEqual(2, fc.topographicMembers.Count);
+            Assert.AreEqual(3, fc.topographicMembers.Count);
+            Assert.AreEqual(1, fc.boundaryMembers.Count);
         }
-
 
         [Test]
         public void canUpdateMetrics()
@@ -82,9 +81,8 @@ namespace TestProject
             Assert.AreEqual(expected, result);
         }
 
-
         [Test]
-        public void Member_Metrics_UpdatedCorrectly()
+        public void Metrics_UpdatedCorrectly()
         {
             MasterMap map = new MasterMap();
             map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
@@ -92,25 +90,23 @@ namespace TestProject
             int expected = 0;
             int result = 0;
 
+            // ** Check total features count **
+            expected = 7;
+            result = map.featureCount;
+            Assert.AreEqual(expected, result);
 
+            // ** Check Member metrics **
             expected = 3;
             result = map.Member_Metrics["cartographicMember"];
             Assert.AreEqual(expected, result);
-
-            expected = 2;
+            expected = 3;
             result = map.Member_Metrics["topographicMember"];
             Assert.AreEqual(expected, result);
-        }
+            expected = 1;
+            result = map.Member_Metrics["boundaryMember"];
+            Assert.AreEqual(expected, result);
 
-        [Test]
-        public void Feature_Metrics_UpdatedCorrectly()
-        {
-            MasterMap map = new MasterMap();
-            map.LoadFeaturesFromXMLFile(testValidFeaturefilePath);
-            map.UpdateMetrics();
-            int expected = 0;
-            int result = 0;
-
+            // ** Check Feature metrics **
             expected = 2;
             result = map.Feature_Metrics["CartographicText"];
             Assert.AreEqual(expected, result);
@@ -123,11 +119,18 @@ namespace TestProject
             expected = 1;
             result = map.Feature_Metrics["TopographicArea"];
             Assert.AreEqual(expected, result);
+            expected = 1;
+            result = map.Feature_Metrics["TopographicPoint"];
+            Assert.AreEqual(expected, result);
+            expected = 1;
+            result = map.Feature_Metrics["BoundaryLine"];
+            Assert.AreEqual(expected, result);
         }
 
 
 
         [Test]
+        [Ignore("Ignore test")]
         public void LoadedXMLFileGeneratesFeatureCollection_FullFile()
         {
             int expected = 0;
@@ -139,15 +142,25 @@ namespace TestProject
             Assert.AreEqual(21183, fc.cartographicMembers.Count);
             Assert.AreEqual(546484, fc.topographicMembers.Count);
 
-
             map.UpdateMetrics();
+
+            // ** Check total features count **
+            expected = 567824;
+            result = map.featureCount;
+            Assert.AreEqual(expected, result);
+
+            // ** Check Member metrics **
             expected = 21183;
             result = map.Member_Metrics["cartographicMember"];
             Assert.AreEqual(expected, result);
             expected = 546484;
             result = map.Member_Metrics["topographicMember"];
             Assert.AreEqual(expected, result);
+            expected = 157;
+            result = map.Member_Metrics["boundaryMember"];
+            Assert.AreEqual(expected, result);
 
+            // ** Check Feature metrics **
             expected = 20299;
             result = map.Feature_Metrics["CartographicText"];
             Assert.AreEqual(expected, result);
@@ -157,9 +170,14 @@ namespace TestProject
             expected = 402355;
             result = map.Feature_Metrics["TopographicLine"];
             Assert.AreEqual(expected, result);
-
             expected = 141903;
             result = map.Feature_Metrics["TopographicArea"];
+            Assert.AreEqual(expected, result);
+            expected = 2226;
+            result = map.Feature_Metrics["TopographicPoint"];
+            Assert.AreEqual(expected, result);
+            expected = 157;
+            result = map.Feature_Metrics["BoundaryLine"];
             Assert.AreEqual(expected, result);
 
         }

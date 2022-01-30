@@ -8,22 +8,25 @@ using System.IO;
 using System.Xml.Linq;
 
 
-namespace TestProject
+
+namespace MasterMapLib
 {
     public class MasterMap
-    {        
+    {
         public XDocument featureXML = new XDocument();
         public int featureXML_nodeCount = 0;
         public XmlDocument featureXMLDoc = new XmlDocument();
         public int featureXMLDoc_nodeCount = 0;
-        public FeatureCollection featureCollection = new FeatureCollection();        
+        public FeatureCollection featureCollection = new FeatureCollection();
         public Dictionary<string, int> Member_Metrics = new Dictionary<string, int>();
         public Dictionary<string, int> Feature_Metrics = new Dictionary<string, int>();
+        public int featureCount = 0;
 
         public enum MemberType
         {
             cartographicMember,
-            topographicMember
+            topographicMember,
+            boundaryMember
         }
 
         public enum FeatureType
@@ -31,7 +34,9 @@ namespace TestProject
             CartographicText,
             CartographicSymbol,
             TopographicLine,
-            TopographicArea
+            TopographicArea,
+            TopographicPoint,
+            BoundaryLine
         }
 
 
@@ -46,7 +51,7 @@ namespace TestProject
                 }
 
                 // ** Load XML to XDocument **
-                featureXMLDoc.Load(filePath);                
+                featureXMLDoc.Load(filePath);
                 featureXMLDoc_nodeCount = featureXMLDoc.ChildNodes.Count;
                 featureXML = XDocument.Load(filePath);
                 featureXML_nodeCount = featureXML.Descendants().Count();
@@ -57,16 +62,21 @@ namespace TestProject
 
                 return 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return -1;
             }
         }
 
         public int UpdateMetrics()
-        {            
+        {
             try
             {
+                // ** Reset variables **
+                featureCount = 0;
+                Member_Metrics = new Dictionary<string, int>();
+                Feature_Metrics = new Dictionary<string, int>();
+
                 // ** Add namespace manager **
                 XmlNamespaceManager nsmgr = new XmlNamespaceManager(featureXMLDoc.NameTable);
                 nsmgr.AddNamespace("osgb", "http://www.ordnancesurvey.co.uk/xml/namespaces/osgb");
@@ -77,9 +87,10 @@ namespace TestProject
                 {
                     if (Member_Metrics.ContainsKey(member) == false) Member_Metrics.Add(member, 0);
                     Member_Metrics[member] = featureXMLDoc.SelectNodes("//osgb:" + member, nsmgr).Count;
+                    featureCount += Member_Metrics[member];
                 }
 
-                // ** Generate Deature **                
+                // ** Generate Feature_Metrics **                
                 foreach (string feature in Enum.GetNames(typeof(FeatureType)))
                 {
                     if (Feature_Metrics.ContainsKey(feature) == false) Feature_Metrics.Add(feature, 0);

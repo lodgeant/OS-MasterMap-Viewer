@@ -8,7 +8,7 @@ using System.IO;
 
 
 
-namespace TestProject
+namespace MasterMapLib
 {
 
     [XmlRoot("cartographicMember", Namespace = osgbNS)]
